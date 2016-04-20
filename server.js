@@ -9,7 +9,7 @@ config.plugins.push(new webpack.HotModuleReplacementPlugin());
 config.devtool = 'eval';
 
 var proxy = {
-  "/vs/*": {target: "http://123.56.235.156", host: "123.56.235.156"},
+  "/hzgj/*": {target: "http://192.168.82.13:9090", host: "123.56.235.156:9090"},
 };
 
 var app = new WebpackDevServer(webpack(config), {

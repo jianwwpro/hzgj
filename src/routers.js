@@ -1,7 +1,11 @@
 export default (router) => {
 	router.map({
+		'/':{
+			name: 'i',
+			component: require('./views/index.vue')
+		},
 		//展览列表
-		'/': {
+		'/exhibitList/:type': {
 			name: 'index',
 			component: require('./views/exhibitList.vue')
 			},

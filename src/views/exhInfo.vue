@@ -1,10 +1,10 @@
 <template>
 <div id="exhInfo">
 	<div class="row">
-		<img class="full-img" v-bind:src="exhibit.photoIds | getImagePoster" >
+		<img class="full-img" v-bind:src="exhibit.imgUrl | getImagePoster" >
 	</div>
 	<div class="row-text">
-		<p>{{exhibit.summary}}</p>
+		<p>{{exhibit.description}}</p>
 	</div>
 </div>
 
@@ -22,20 +22,21 @@ export default {
 	},
 	route: {
 		data ({ to : { params: { id }}}) {
-			// return api.productions.get(id)
-			// 	.then(res => {
-			// 	return {
-			// 		exhibit: res.data,
-			// 		}
-			//  	}, err => {
-			//  		console.log(err);
-			//  		alert('接口错误');
-			//  	})
-			var ex= api.exhibits.get(id);
+
+			return api.productions.get(id)
+				.then(res => {
+				return {
+					exhibit: res.data.result,
+					}
+			 	}, err => {
+			 		console.log(err);
+			 		alert('接口错误');
+			 	})
+			//var ex= api.exhibits.get(id);
 			document.title="展览介绍";
-			return {
-				exhibit:ex
-			}
+			// return {
+			// 	exhibit:ex
+			// }
 		}
 	},
 	methods: {

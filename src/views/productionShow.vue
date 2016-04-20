@@ -1,14 +1,14 @@
 <template>
 <div id="productionShow">
 	<div class="row">
-		<img class="full-img" v-bind:src="production.photoIds | getImagePoster" >
+		<img class="full-img" v-bind:src="production.imgUrl | getImagePoster" >
 	</div>
 	<div class="row flex">
 		<!-- 介绍 -->
-		<div class="flex-img left-img" v-link="{ name: 'exhInfo', params: { id: production.id}}">
+		<div class="flex-img left-img" v-link="{ name: 'exhInfo', params: { id: production.exhibitId}}">
 			<img  v-bind:src="images[0]">
 		</div>
-		<div class="flex-img right-img" v-link="{ name: 'exhArts', params: {id: production.id}}">
+		<div class="flex-img right-img" v-link="{ name: 'exhArts', params: {id: production.exhibitId}}">
 			<img  v-bind:src="images[1]">
 		</div>
 		
@@ -39,22 +39,16 @@ import api from '../api.js'
 export default {
 	data () {
 		return {
-			images: ['../src/assets/i/js.png','../src/assets/i/zs.png','../src/assets/i/sp.png','../src/assets/i/3d.png','../src/assets/i/qj.png'],
-			order: {
-				'products[0].id': null,
-				'products[0].sum': null,
-			},
+			images: ['../static/i/js.png','../static/i/zs.png','../static/i/sp.png','../static/i/3d.png','../static/i/qj.png'],
+			
 			production: {},
-			state: {
-				buy: true,
-				pay: false
-			}
+			
 		}
 	}
 	,watch : {
 		'production': function(n,o){
 			console.log(n);
-			this.$route.router.app.title=n.title;
+			//this.$route.router.app.title=n.exhibitName;
 		}
 	},
 
@@ -62,20 +56,22 @@ export default {
 
 		data ({ to : { params: { id }}}) {
 			
-			// return api.productions.get(id)
-			// 	.then(res => {
-			// 		return {
-			// 			production: res.data,
-			// 		}
-			// 	}, err => {
-			// 		console.log(err);
-			// 		alert('接口错误');
-			// 	})
-var ex= api.exhibits.get(id);
-document.title=ex.title;
-			return {
-				production:ex
-			}
+			return api.productions.get(id)
+				.then(res => {
+					console.log(res.data.result);
+					return {
+						production: res.data.result,
+					}
+				}, err => {
+					console.log(err);
+					alert('接口错误');
+				})
+// alert(id);
+// var ex= api.exhibits.get(id);
+			document.title=ex.exhibitName;
+			// return {
+			// 	production:ex
+			// }
 		}
 	},
 	methods: {

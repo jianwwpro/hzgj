@@ -1,26 +1,26 @@
 <template>
 <ul class="productions items" id="productions" @scroll="scrollFunc">
-	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.id }}">
+	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.exhibitId }}">
 		
 		<div class="first" v-if="$index==0">
 			<div class="poster">
-				<img v-bind:src="p.photoIds | getImagePoster">
+				<img v-bind:src="p.imgUrl | getImagePoster">
 			</div>
 			<div class="content" >
-				<p class="title">{{p.title}}</p>
-				<p class="oth">{{p.startDate}} -- {{p.endDate}}</p>
+				<p class="title">{{p.exhibitName}}</p>
+				<p class="oth">{{p.startTime}} -- {{p.endTime}}</p>
 				<p class="oth" >{{p.address}}</p>
 			</div>
 		</div>
 
 		<div class="more">
 			<div class="content" v-if="$index!=0">
-				<p class="title">{{p.title}}</p>
-				<p class="oth"> {{p.startDate}} -- {{p.endDate}} </p>
+				<p class="title">{{p.exhibitName}}</p>
+				<p class="oth"> {{p.startTime}} -- {{p.endTime}} </p>
 				<p class="oth">{{p.address}}</p>
 			</div>
 			<div class="poster" v-if="$index!=0">
-				<img v-bind:src="p.photoIds | getImagePoster">
+				<img v-bind:src="p.imgUrl | getImagePoster">
 			</div>
 		</div>
 			
@@ -43,21 +43,21 @@ export default {
 		}
 	},
 	route: {
-		data ({ to }) {
-		return {	
-			productions : api.exhibits.list
-		}
-			// return api.productions.index(this.pagination.page, this.pagination.limit)
-			// 	.then(res => {
-
-			// 		return {
-			// 			//productions: res.data.rows,
-			// 			productions: api.exhibits.list
-			// 		}
-			// 	}, err => {
-			// 		console.log(err);
-			// 		alert('接口错误');
-			// 	})
+		data ({ to : { params: { type }}}) {
+		// return {	
+		// 	productions : api.exhibits.list
+		// }
+		return api.productions.index()
+			.then(res => {
+				console.log(res.data);
+				return {
+					productions: res.data.lists[type],
+					
+				}
+			}, err => {
+				console.log(err);
+				alert('接口错误');
+			})
 		}
 	},
 	methods: {

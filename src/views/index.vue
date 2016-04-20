@@ -1,18 +1,5 @@
 <template>
-<ul class="productions items" id="productions" @scroll="scrollFunc">
-		<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.id }}">
-				<div class="poster">
-					<img v-bind:src="p.photoIds | getImagePoster">
-				</div>
-				<div class="content">
-					<p>{{p.name}}</p>
-					<p v-html="p.summary"></p>
-					<p v-if="p.productType">{{p.productType.name}}</p>
-					<p></p>
-				</div>
-				<span>￥{{ p.price }}</span>
-		</li>
-</ul>
+test
 </template>
 
 <script>

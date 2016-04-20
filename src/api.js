@@ -3,11 +3,12 @@ import Vue from 'vue'
 // 分页
 const PAGE_NO = 1
 const PAGE_SIZE = 10
+const platform='weixin';
 // 常量 API 接口地址
-const HOST = '/vs'
+const HOST = '/hzgj/iface/jk'
 // proudctions
-const API_PRODUCT_INDEX_API = `${HOST}/front/product`
-const API_PRODUCT_SHOW_API = `${HOST}/front/product/info`
+const API_PRODUCT_INDEX_API = `${HOST}/exhibitlist`
+const API_PRODUCT_SHOW_API = `${HOST}/exhibitdetail`
 // user
 const API_SEND_SMS_CODE_URL = `${HOST}/front/user/phoneCode`
 const API_USER_REGISTER_URL = `${HOST}/front/user/register`
@@ -27,11 +28,11 @@ Vue.http.options.emulateJSON = true
 
 export default {
 	productions: {
-		index: (pageNo = PAGE_NO, pageSize = PAGE_SIZE) => {
-			return Vue.http.get(API_PRODUCT_INDEX_API, { pageNo: pageNo, pageSize: pageSize })
+		index: () => {
+			return Vue.http.get(API_PRODUCT_INDEX_API, { platform: platform })
 		},
 		get (id) {
-			return Vue.http.get(API_PRODUCT_SHOW_API, { id: id })
+			return Vue.http.get(API_PRODUCT_SHOW_API, { exhibitId: id })
   	},
   },
   exhibits: {
@@ -39,7 +40,7 @@ export default {
 	  {
 	  	id: 1,
 	  	title: '安徽古建筑展', 
-	  	photoIds: '../src/assets/images/1.jpg',
+	  	photoIds: '../static/assets/images/1.jpg',
 	  	summary: '古徽州一府六县，境内山清水秀，独特的地理环境与历史背景，形成了崇文重教的儒家文化氛围。徽州古建筑具有鲜明的地域风格，独具特色的砖、石、木“三雕”艺术，使之富有细部审美要素。徽州建筑在建筑技艺、民众生活、伦理观念、审美追求方面传递着诸多文化信息，反映了天人合一的文化理念',
 	  	startDate: '2016-03-01',
 	  	endDate: '2016-03-01',
@@ -48,7 +49,7 @@ export default {
 	  {
 	  	  id:2,
 		  title: '从感动出发-------耿秋明中国画展', 
-	  	photoIds: '../src/assets/images/2.jpg',
+	  	photoIds: '../static/assets/images/2.jpg',
 		  summary: '古徽州一府六县，境内山清水秀，独特的地理环境与历史背景，形成了崇文重教的儒家文化氛围。徽州古建筑具有鲜明的地域风格，独具特色的砖、石、木“三雕”艺术，使之富有细部审美要素。徽州建筑在建筑技艺、民众生活、伦理观念、审美追求方面传递着诸多文化信息，反映了天人合一的文化理念',
 		  startDate: '2016-03-01',
 	  	  endDate: '2016-03-01',
@@ -57,7 +58,7 @@ export default {
 	  	 {
 	  	 	id:3,
 		  title: '知白守黑------张亮讯张勋军书法作品捐赠展', 
-	  	photoIds: '../src/assets/images/3.jpg',
+	  	photoIds: '../static/assets/images/3.jpg',
 		  summary: '古徽州一府六县，境内山清水秀，独特的地理环境与历史背景，形成了崇文重教的儒家文化氛围。徽州古建筑具有鲜明的地域风格，独具特色的砖、石、木“三雕”艺术，使之富有细部审美要素。徽州建筑在建筑技艺、民众生活、伦理观念、审美追求方面传递着诸多文化信息，反映了天人合一的文化理念',
 		  startDate: '2016-03-01',
 	  	  endDate: '2016-03-01',
