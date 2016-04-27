@@ -3,12 +3,14 @@ import Vue from 'vue'
 // 分页
 const PAGE_NO = 1
 const PAGE_SIZE = 10
-const platform='weixin';
+const platform='WX';
 // 常量 API 接口地址
 const HOST = '/hzgj/iface/jk'
 // proudctions
 const API_PRODUCT_INDEX_API = `${HOST}/exhibitlist`
 const API_PRODUCT_SHOW_API = `${HOST}/exhibitdetail`
+const API_ACTIVITY_SHOW_API = `${HOST}/tzgg`
+
 // user
 const API_SEND_SMS_CODE_URL = `${HOST}/front/user/phoneCode`
 const API_USER_REGISTER_URL = `${HOST}/front/user/register`
@@ -33,8 +35,17 @@ export default {
 		},
 		get (id) {
 			return Vue.http.get(API_PRODUCT_SHOW_API, { exhibitId: id })
-  	},
+  		},
+
   },
+  activity: {
+		list: () => {
+			return Vue.http.get(API_ACTIVITY_SHOW_API, { platform: platform })
+		},
+		get (id) {
+			return Vue.http.get(API_ACTIVITY_SHOW_API, { exhibitId: id })
+		}
+  	},
   exhibits: {
   	list:[
 	  {

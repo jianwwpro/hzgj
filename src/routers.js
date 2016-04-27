@@ -27,7 +27,11 @@ export default (router) => {
 			component: require('./views/exhArts.vue'),
 			
 		},
-		
+		//通知公告
+		'/activityList':{
+			name:'activityList',
+			component: require('./views/activityList.vue')
+		},
 		'*': {
 			component: require('./views/404.vue')			
 		}
