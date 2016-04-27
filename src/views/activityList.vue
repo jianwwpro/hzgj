@@ -1,4 +1,3 @@
-
 <template>
 
 		<div id="exhInfo">			
@@ -17,7 +16,7 @@
 					</a>
 				</li> -->
 				<li v-for="p in productions">
-					<a href="#">
+					<a href="javascrit:">
 						<p>{{p.title}}</p>
 						<time>2016-03-18</time>
 					</a>

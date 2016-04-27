@@ -1,5 +1,6 @@
 <template>
 <ul class="productions items" id="productions" @scroll="scrollFunc">
+
 	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.exhibitId }}">
 		
 		<div class="first" v-if="$index==0">
@@ -30,6 +31,9 @@
 
 <script>
 import api from '../api.js'
+import store from '../store'
+import { increment, decrement } from '../action'
+
 
 export default {
 	data () {
@@ -39,11 +43,24 @@ export default {
 				page: 1,
 				limit: 10
 			},
-			noMoreData: false
+			noMoreData: false,
+			type:0
+
 		}
+	},
+	store,
+	vuex: {
+	    getters: {
+	      count: state => state.count
+	    },
+	    actions: {
+	      increment,
+	      decrement
+	    }
 	},
 	route: {
 		data ({ to : { params: { type }}}) {
+			this.type=type;
 		// return {	
 		// 	productions : api.exhibits.list
 		// }
@@ -51,6 +68,7 @@ export default {
 			.then(res => {
 				console.log(res.data);
 				return {
+
 					productions: res.data.lists[type],
 					
 				}
@@ -81,7 +99,15 @@ export default {
 		}
 	},ready () {
 		//this.$route.router.app.title="最新展览";
-		document.title = '最新展览';
+		if(this.type==0){
+			document.title = '最新展览';
+		}else if(this.type==1){
+			document.title = '全景展览';
+		}else if(this.type==2){
+			document.title = '展览回顾';
+		}else if(this.type==3){
+			document.title = '正在展览';
+		}
 		
 	}
 }

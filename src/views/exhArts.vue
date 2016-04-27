@@ -1,10 +1,10 @@
 <template>
-<ul class="artworks items" id="exhArts" @scroll="scrollFunc">
+<ul class="artworks items" id="exhArts" >
 	<li v-for="p in arts" v-link="{ name: 'productionShow', params: { id: p.id }}">
 		<div class="poster">
-			<img v-bind:src="p.img | getImagePoster" />
+			<img v-bind:src="p.artImgUrl | getImagePoster" />
 		</div>
-		<p>{{p.name}}</p>
+		<p>{{p.artName}}</p>
 	</li>
 </ul>
 </template>
@@ -18,55 +18,48 @@ export default {
 			arts: [],
 			pagination: {
 				page: 1,
-				limit: 10
+				limit: 1000
 			},
 			noMoreData: false
 		}
 	},
 	route: {
-		data ({ to }) {
-		var arts = [];
-		for(var i = 0;i<6;i++){
-			arts.push({'name':'名字'+i,img:'../src/assets/images/'+i+'.png'});
-		}
-		return {	
-			arts : arts
-		}
-			// return api.productions.index(this.pagination.page, this.pagination.limit)
-			// 	.then(res => {
-
-			// 		return {
-			// 			//productions: res.data.rows,
-			// 			productions: api.exhibits.list
-			// 		}
-			// 	}, err => {
-			// 		console.log(err);
-			// 		alert('接口错误');
-			// 	})
+		data ({ to : {params: { id }}}) {
+		
+			return api.arts.byExhibit(id)
+				.then(res => {
+					console.log(res.data.artList);
+					return {
+						arts: res.data.artList
+					}
+				}, err => {
+					console.log(err);
+					alert('接口错误');
+				})
 		}
 	},
 	methods: {
 
-		scrollFunc: function (e) {
+		// scrollFunc: function (e) {
 			
-			if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
-				this.pagination.page++
-				api.productions.index(this.pagination.page, this.pagination.limit)
-					.then(res => {
-						if (res.data.rows < this.pagination.limit){
-							this.noMoreData = true
-							return this.$router.app.snackbar('warning', '没有数据了')
-						}
-						this.productions = this.productions.concat(res.data.rows);
-					}, err => {
-						console.log(err);
-						// alert('接口错误');
-					})
-			}
-		}
+		// 	if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
+		// 		this.pagination.page++
+		// 		api.productions.index(this.pagination.page, this.pagination.limit)
+		// 			.then(res => {
+		// 				if (res.data.rows < this.pagination.limit){
+		// 					this.noMoreData = true
+		// 					return this.$router.app.snackbar('warning', '没有数据了')
+		// 				}
+		// 				this.productions = this.productions.concat(res.data.rows);
+		// 			}, err => {
+		// 				console.log(err);
+		// 				// alert('接口错误');
+		// 			})
+		// 	}
+		// }
 	},ready () {
 		//this.$route.router.app.title="最新展览";
-		document.title = '最新展览';
+		document.title = '藏品展示';
 		
 	}
 }

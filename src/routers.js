@@ -32,6 +32,14 @@ export default (router) => {
 			name:'activityList',
 			component: require('./views/activityList.vue')
 		},
+		'/videoPlay':{
+			name:'videoPlay',
+			component: require('./views/videoPlay.vue')
+		},
+		'/vuex':{
+			name:'vuex',
+			component:require('./views/vuex.vue')
+		},
 		'*': {
 			component: require('./views/404.vue')			
 		}

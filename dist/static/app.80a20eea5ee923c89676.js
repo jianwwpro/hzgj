@@ -1,2 +1,0 @@
-webpackJsonp([1],[function(n,o,r){!function(){throw new Error('Cannot find module "./src/index.js"')}(),function(){throw new Error('Cannot find module "./src/assets/index.styl"')}()}]);
-//# sourceMappingURL=app.80a20eea5ee923c89676.js.map

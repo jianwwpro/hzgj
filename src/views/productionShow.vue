@@ -15,15 +15,15 @@
 	</div>
 	<div class="row flex">
 
-		<div class="flex-img left-img">
+		<div class="flex-img left-img" @click="play(production.videoUrl)" >
 			<img  v-bind:src="images[2]">
 		</div>
-		<div class="flex-img right-img">
+		<div class="flex-img right-img"  @click="openLocation(production.url3D)">
 			<img  v-bind:src="images[3]">
 		</div>
 	</div>
 	<div class="row">
-		<img class="full-img" v-bind:src="images[4]" >
+		<img class="full-img" v-bind:src="images[4]"  @click="openLocation(production.panoramaUrl)">
 
 	</div>
 	
@@ -35,15 +35,25 @@
   
 <script>
 import api from '../api.js'
+import { seturl } from '../action'
+import store from '../store'
 
 export default {
 	data () {
 		return {
 			images: ['../static/i/js.png','../static/i/zs.png','../static/i/sp.png','../static/i/3d.png','../static/i/qj.png'],
-			
 			production: {},
 			
 		}
+	},
+	store,
+	vuex: {
+	    getters: {
+	      url: state => state.url,
+	    },
+	    actions: {
+	      seturl
+	    }
 	}
 	,watch : {
 		'production': function(n,o){
@@ -53,7 +63,6 @@ export default {
 	},
 
 	route: {
-
 		data ({ to : { params: { id }}}) {
 			
 			return api.productions.get(id)
@@ -75,19 +84,18 @@ export default {
 		}
 	},
 	methods: {
-		buy () {
-			this.state.pay = true
+		openLocation:function(url){
+			alert(url);
+			window.location.href=url;
 		},
-		
-		closeForm () {
-			this.state.pay = false
-		},
-		stopEvent (e) {
-			e.stopPropagation()
+		play:function(url){
+			this.seturl(url);
+			console.log(this.url);
+			this.$route.router.go({ name: 'videoPlay'});
 		}
 	},
 	ready () {
-				
+		
 	}
 
 }
