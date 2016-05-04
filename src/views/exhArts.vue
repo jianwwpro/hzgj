@@ -1,6 +1,6 @@
 <template>
 <ul class="artworks items" id="exhArts" >
-	<li v-for="p in arts" v-link="{ name: 'productionShow', params: { id: p.id }}">
+	<li v-for="p in arts" v-link="{ name: 'artInfo', params: { id: p.artId }}">
 		<div class="poster">
 			<img v-bind:src="p.artImgUrl | getImagePoster" />
 		</div>

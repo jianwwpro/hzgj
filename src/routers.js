@@ -27,10 +27,21 @@ export default (router) => {
 			component: require('./views/exhArts.vue'),
 			
 		},
-		//通知公告
-		'/activityList':{
+		//展品
+		'/art/:id': {
+			name: 'artInfo',
+			component: require('./views/artInfo.vue'),
+			
+		},
+		//通知社教
+		'/activityList/:type':{
 			name:'activityList',
 			component: require('./views/activityList.vue')
+		},
+		//通知社教详情
+		'/activityInfo/:id':{
+			name:'activityInfo',
+			component: require('./views/activityInfo.vue')
 		},
 		'/videoPlay':{
 			name:'videoPlay',

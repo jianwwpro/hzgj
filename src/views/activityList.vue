@@ -15,11 +15,9 @@
 						<time>2016-03-18</time>
 					</a>
 				</li> -->
-				<li v-for="p in productions">
-					<a href="javascrit:">
+				<li v-for="p in productions" @click="link(p)">
 						<p>{{p.title}}</p>
 						<time>2016-03-18</time>
-					</a>
 				</li>
 				
 			</ul>
@@ -49,8 +47,9 @@ export default {
 		}
 	},
 	route: {
-		data () {
-		return api.activity.list()
+		data ({ to : { params: { type }}}) {
+
+		return api.activity.list(type)
 			.then(res => {
 				console.log(res.data);
 				return {
@@ -63,7 +62,12 @@ export default {
 		}
 	},
 	methods: {
-
+		link:function(p){
+			if(p.wxSuCai==true){
+				window.location.href=p.sourceUrl;
+			}else 
+				this.$route.router.go({name:'activityInfo',params:{id:p.id}});
+		},
 		scrollFunc: function (e) {
 			
 			if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {

@@ -85,7 +85,7 @@ export default {
 	},
 	methods: {
 		openLocation:function(url){
-			alert(url);
+			
 			window.location.href=url;
 		},
 		play:function(url){
