@@ -106,7 +106,7 @@ export default {
 		}else if(this.type==2){
 			document.title = '展览回顾';
 		}else if(this.type==3){
-			document.title = '正在展览';
+			document.title = '基本陈列';
 		}
 		
 	}

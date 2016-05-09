@@ -51,6 +51,13 @@ export default (router) => {
 			name:'vuex',
 			component:require('./views/vuex.vue')
 		},
+		'/cgzn':{
+			name:'cgzn',
+			component:require('./views/cgzn.vue')
+		},'/gyab':{
+			name:'gyab',
+			component:require('./views/gyab.vue')
+		},
 		'*': {
 			component: require('./views/404.vue')			
 		}

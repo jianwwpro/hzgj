@@ -3,11 +3,11 @@
 <div id="page-content">
 	<div id="img-content" class="rich_media_area_primary">
 	    <h2 class="rich_media_title" id="activity-name">
-	        安徽博物院荣获全省文物宣传信息工作先进单位 
+	        {{activity.title}}
 	    </h2>
 	    <div class="rich_media_meta_list">		                        
-	         <em id="post-date" class="rich_media_meta rich_media_meta_text">2015-09-07</em>
-	        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">安徽博物院</span>
+	         <em id="post-date" class="rich_media_meta rich_media_meta_text">{{activity.updateDate | formatDate 'ddd'}}</em>
+	        <span class="rich_media_meta rich_media_meta_text rich_media_meta_nickname">{{activity.author}}</span>
 	    </div>
 	    <div class="rich_media_content " id="js_content" v-html="activity.content">
 	        

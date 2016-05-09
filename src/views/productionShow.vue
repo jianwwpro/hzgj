@@ -58,6 +58,7 @@ export default {
 	,watch : {
 		'production': function(n,o){
 			console.log(n);
+			document.title=this.production.exhibitName;
 			//this.$route.router.app.title=n.exhibitName;
 		}
 	},
@@ -77,7 +78,7 @@ export default {
 				})
 // alert(id);
 // var ex= api.exhibits.get(id);
-			document.title=ex.exhibitName;
+			
 			// return {
 			// 	production:ex
 			// }

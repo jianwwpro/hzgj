@@ -17,7 +17,7 @@
 				</li> -->
 				<li v-for="p in productions" @click="link(p)">
 						<p>{{p.title}}</p>
-						<time>2016-03-18</time>
+						<time>{{p.updateDate | formatDate}}</time>
 				</li>
 				
 			</ul>
@@ -38,6 +38,7 @@ import api from '../api.js'
 export default {
 	data () {
 		return {
+			type:0,
 			productions: [],
 			pagination: {
 				page: 1,
@@ -48,7 +49,7 @@ export default {
 	},
 	route: {
 		data ({ to : { params: { type }}}) {
-
+this.type=type;
 		return api.activity.list(type)
 			.then(res => {
 				console.log(res.data);
@@ -86,7 +87,11 @@ export default {
 			}
 		}
 	},ready () {
+		if(type==0)
 		document.title = '通知公告';
+		if (type==1) {
+		document.title = '社教活动';	
+		};
 		
 	}
 }
