@@ -1,6 +1,6 @@
 <template>
 
-		<div id="exhInfo">			
+		<div id="activityList">			
 			<ul class="ul-list">
 				<!-- <li>
 					<a href="#">
@@ -15,6 +15,7 @@
 						<time>2016-03-18</time>
 					</a>
 				</li> -->
+				
 				<li v-for="p in productions" @click="link(p)">
 						<p>{{p.title}}</p>
 						<time>{{p.updateDate | formatDate}}</time>
@@ -47,9 +48,21 @@ export default {
 			noMoreData: false
 		}
 	},
+	watch: {
+		type: function(n,o){
+			if(n==1)
+				document.title = '通知公告';
+			if (n==0) {
+				document.title = '社教活动';	
+			};
+			if (n==2) {
+				document.title = '新展预告';	
+			};
+		}
+	},
 	route: {
 		data ({ to : { params: { type }}}) {
-this.type=type;
+		this.type=type;
 		return api.activity.list(type)
 			.then(res => {
 				console.log(res.data);
@@ -87,11 +100,7 @@ this.type=type;
 			}
 		}
 	},ready () {
-		if(type==0)
-		document.title = '通知公告';
-		if (type==1) {
-		document.title = '社教活动';	
-		};
+		
 		
 	}
 }

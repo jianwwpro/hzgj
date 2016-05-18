@@ -69,6 +69,7 @@ export default {
 			return api.productions.get(id)
 				.then(res => {
 					console.log(res.data.result);
+					document.title=res.data.result.exhibitName;
 					return {
 						production: res.data.result,
 					}

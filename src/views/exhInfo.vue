@@ -33,7 +33,7 @@ export default {
 			 		alert('接口错误');
 			 	})
 			//var ex= api.exhibits.get(id);
-			document.title="展览介绍";
+			
 			// return {
 			// 	exhibit:ex
 			// }
@@ -43,7 +43,7 @@ export default {
 		
 	},
 	ready () {
-				
+		document.title="展览介绍";		
 	}
 
 }

@@ -47,6 +47,10 @@ export default (router) => {
 			name:'videoPlay',
 			component: require('./views/videoPlay.vue')
 		},
+		'/audioPlay':{
+			name:'audioPlay',
+			component: require('./views/audioPlay.vue')
+		},
 		'/vuex':{
 			name:'vuex',
 			component:require('./views/vuex.vue')

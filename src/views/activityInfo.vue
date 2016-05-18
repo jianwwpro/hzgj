@@ -27,6 +27,11 @@ export default {
 			noMoreData: false
 		}
 	},
+	watch:{
+		activity:function(n,o){
+			document.title = n.title;
+		}
+	},
 	route: {
 		data ({ to : {params: { id }}}) {		
 			return api.activity.get(id)
@@ -64,7 +69,7 @@ export default {
 		// }
 	},ready () {
 		//this.$route.router.app.title="最新展览";
-		document.title = '藏品展示';
+		
 		
 	}
 }

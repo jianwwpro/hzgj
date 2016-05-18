@@ -1,15 +1,24 @@
 <template>
-<ul class="artworks items" id="exhArts" >
-	<li v-for="p in arts" v-link="{ name: 'artInfo', params: { id: p.artId }}">
-		<div class="poster">
-			<img v-bind:src="p.artImgUrl | getImagePoster" />
-		</div>
-		<p>{{p.artName}}</p>
-	</li>
-</ul>
+<div id="exhArts"  class="contents container wrap" id="contents" tapmode>
+	 <div v-for="p in arts" v-link="{ name: 'artInfo', params: { id: p.artId }}">
+		<img class="myImg highlight-color" v-bind:src="p.artImgUrl | getImagePoster" alt="" title="" />
+		 <span class="title">{{p.artName}}</span>
+	 </div>
+</div>
+
 </template>
 
 <script>
+var html = document.documentElement;
+function onWindowResize() {
+    html.style.fontSize = html.getBoundingClientRect().width / 20 + 'px';
+}
+window.addEventListener('resize', onWindowResize);
+onWindowResize();
+
+
+
+
 import api from '../api.js'
 
 export default {
@@ -40,52 +49,41 @@ export default {
 	},
 	methods: {
 
-		// scrollFunc: function (e) {
-			
-		// 	if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
-		// 		this.pagination.page++
-		// 		api.productions.index(this.pagination.page, this.pagination.limit)
-		// 			.then(res => {
-		// 				if (res.data.rows < this.pagination.limit){
-		// 					this.noMoreData = true
-		// 					return this.$router.app.snackbar('warning', '没有数据了')
-		// 				}
-		// 				this.productions = this.productions.concat(res.data.rows);
-		// 			}, err => {
-		// 				console.log(err);
-		// 				// alert('接口错误');
-		// 			})
-		// 	}
-		// }
 	},ready () {
 		//this.$route.router.app.title="最新展览";
-		document.title = '藏品展示';
 		
+		document.title = '藏品展示';
 	}
 }
 </script>
 
 <style lang="stylus" scoped>
 
-
-
-
-
-ul
-	-webkit-overflow-scrolling: touch;
-	padding 0 5px
-	li
-		float: left;
-		width: 50%;
-		div.poster 
-			padding 5px
-			padding-top: 10px;
-			padding-bottom 0
-			img
-				width 100%
-		p
-			text-align: center;	
-
+/*公共样式*/
+#exhArts{height: 100%; width:100%;}
+li{list-style: none;}
+*{padding:0;margin:0;}
+a{text-decoration: none;color:#999;}
+.clearfix:after {content: '\20';display: block;clear: both;visibility: hidden;}
+.highlight-color{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+/*公共样式结束*/
+.contents{width: 18.93rem; margin: 0 auto;}
+.container{
+column-width:9.22rem;
+-webkit-column-width:9.22rem;
+-moz-column-width:9.22rem;
+-o-colum-width:9.22rem;
+-webkit-column-gap:0.4rem;
+-moz-column-gap:0.4rem;
+-o-column-gap:0.4rem;
+}
+	.container div{ border:#CCC 1px solid; display:inline-block;width:9.1rem;position:relative; margin-top: 2px;}
+.container img{width: 9.1rem; min-height: 1rem;border: 0px solid #fff;}
+.title{
+ line-height:1.5rem; font-size:0.69rem; color:#666;
+ text-align:center;
+ font-family:"Microsoft YaHei";
+}
 
 </style>
 
