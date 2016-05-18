@@ -4,8 +4,8 @@
 		咨询活动
 		<ul>
 			<li v-link="{name:'activityList',params:{type:2}}">新展预告</li>
-			<li v-link="{name:'activityList',params:{type:1}}">通知公告</li>
-			<li v-link="{name:'activityList',params:{type:0}}">社教活动</li>
+			<li v-link="{name:'activityList',params:{type:0}}">通知公告</li>
+			<li v-link="{name:'activityList',params:{type:1}}">社教活动</li>
 		</ul>
 	</div>
 	<div>

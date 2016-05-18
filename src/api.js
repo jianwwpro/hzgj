@@ -36,8 +36,8 @@ export default {
   	},
 	//通知社教
 	activity: {
-		list: (type) => {
-			return Vue.http.get(API_ACTIVITY_LIST_API, { wxMenu: type })
+		list: (type,page) => {
+			return Vue.http.get(API_ACTIVITY_LIST_API, { wxMenu: type,page:page==null?1:page })
 		},
 		get (id) {
 			return Vue.http.get(API_ACTIVITY_SHOW_API, { id: id })

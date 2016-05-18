@@ -1,40 +1,25 @@
 <template>
 
-		<div id="activityList">			
-			<ul class="ul-list">
-				<!-- <li>
-					<a href="#">
-						<div class="img-titele">
-						   <img src=""/>	
-						   <div class="title-msg">
-						   	 <h3>我远开展雷锋月我远开展雷锋展</h3>
-						   	 <h4>2016-03-18</h4>
-						   </div>
-						</div>
-						<p>省社科联党组书记马雷调研我院省科普基地创建情况省社科联党组书记马雷调研我院省科</p>
-						<time>2016-03-18</time>
-					</a>
-				</li> -->
-				
-				<li v-for="p in productions" @click="link(p)">
-						<p>{{p.title}}</p>
-						<time>{{p.updateDate | formatDate}}</time>
-				</li>
-				
-			</ul>
+<ul class="productions items" id="productions" @scroll="scrollFunc">
+
+	<li v-for="p in productions" @click="link(p)">
+
+		<div class="more">
+			<div class="content" v-if="$index!=0">
+				<p class="title">{{p.title}}</p>
+				<p class="oth"> {{p.updateDate | formatDate}} </p>
+			</div>
+			
 		</div>
+			
+	</li>
+</ul>
+
+		
 </template>
 
 <script>
 import api from '../api.js'
-(function () {
-    var html = document.documentElement;			
-    function onWindowResize() {
-        html.style.fontSize = html.getBoundingClientRect().width / 20 + 'px';
-    }			
-    window.addEventListener('resize', onWindowResize);
-    onWindowResize();
-})();
 
 export default {
 	data () {
@@ -51,9 +36,9 @@ export default {
 	watch: {
 		type: function(n,o){
 			if(n==1)
-				document.title = '通知公告';
+				document.title = '社教活动';
 			if (n==0) {
-				document.title = '社教活动';	
+				document.title = '通知公告';	
 			};
 			if (n==2) {
 				document.title = '新展预告';	
@@ -86,13 +71,15 @@ export default {
 			
 			if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
 				this.pagination.page++
-				api.productions.index(this.pagination.page, this.pagination.limit)
+				api.activity.list(this.type,this.pagination.page)
 					.then(res => {
-						if (res.data.rows < this.pagination.limit){
+						console.log(res);
+						if (res.data.artList < 10){
 							this.noMoreData = true
 							return this.$router.app.snackbar('warning', '没有数据了')
 						}
-						this.productions = this.productions.concat(res.data.rows);
+
+						this.productions = this.productions.concat(res.data.artList);
 					}, err => {
 						console.log(err);
 						// alert('接口错误');
@@ -107,24 +94,64 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-*{margin: 0;padding: 0;}
-		li {
-	list-style: none;
-}
-#exhInfo{
-	width: 94.68%;
-	background-color: #fff;
-	margin: 0 auto;
-}
-#exhInfo li:nth-of-type(1) img{width: 100%;height: auto;position: relative;left: 0;top: 0;}
-.ul-list{width: 100%;}
-#exhInfo li{padding-bottom: 0.3rem;border-bottom: 1px solid #ededed;}
-#exhInfo li .img-titele{width: 100%;height: auto;position: relative;}
-#exhInfo li .img-titele .title-msg{position: absolute;width: 100%;height: 2.275rem;bottom: 0;left: 0;background: rgba(0,0,0,0.5);padding: 0.3rem 0;}
-#exhInfo li .img-titele .title-msg h3{font-size: 1.1rem;line-height: 1.2rem;color: #fff;text-indent: 0.3rem;}
-#exhInfo li .img-titele .title-msg h4{font-size: 0.8rem;line-height: 1rem;color: #cec1b8;text-indent: 0.3rem;}
-#exhInfo ul {padding: 0.526rem 0;}
-.ul-list li p{font-size: 0.78125rem;color: #333333;font-family: "arial narrow";line-height: 1.2rem;margin-top: 0.5rem;}
-.ul-list li time{font-size: 0.625rem;color: #b6b6b6;font-family: arial;line-height: 1.4rem;}
+
+.content
+	overflow: hidden;
+	//margin: 0 5px 0 10px
+	overflow: hidden;
+	width 100%
+	-moz-box-flex 1
+	-webkit-box-flex 1
+	box-flex 1
+	margin-left 5px
+	margin-bottom 5px
+	p
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow:ellipsis;
+		//margin: 2px 0 2px 0;
+	.title
+		font-size 16px;
+	.oth
+		margin-top 10px
+		font-size 13px
+		color #a0a0a0
+ul
+	-webkit-overflow-scrolling: touch;
+	box-sizing: border-box;
+	height: 100%;
+	position: relative;
+	overflow-y auto
+	width 100%
+	li
+		padding-top 10px
+		border-bottom: 1px solid #ccc
+		width 100%
+		.more
+			display -webkit-flex
+			display -moz-flex
+			display -ms-flex
+			display -o-flex
+			display flex
+			display -moz-box
+			display -webkit-box
+			display box
+			//width: 98%
+			.poster
+				/*-moz-box-flex 3
+				-webkit-box-flex 3
+				box-flex 3*/
+				width 78px
+				img
+					width 78px
+					height 78px
+					float right
+					margin-right 5px
+					margin-bottom 5px
+		.first
+			div.poster img
+				width 100%
+				height 100%
+				//margin-bottom 2px
 		
 </style>
