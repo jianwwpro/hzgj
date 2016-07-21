@@ -1,33 +1,84 @@
 <template>
 <ul class="productions items" id="productions" @scroll="scrollFunc">
-
 	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.exhibitId }}">
-		
-		<div class="first" v-if="$index==0">
-			<div class="poster">
-				<img v-bind:src="p.imgUrl | getImagePoster">
-			</div>
-			<div class="content" >
-				<p class="title">{{p.exhibitName}}</p>
-				<p class="oth">{{p.startTime}} -- {{p.endTime}}</p>
-				<p class="oth" >{{p.address}}</p>
-			</div>
+	<div class="exhi">
+		<div class="poster">
+			<img v-bind:src="p.imgUrl | getImagePoster">
 		</div>
-
-		<div class="more">
-			<div class="content" v-if="$index!=0">
-				<p class="title">{{p.exhibitName}}</p>
-				<p class="oth"> {{p.startTime}} -- {{p.endTime}} </p>
-				<p class="oth">{{p.address}}</p>
-			</div>
-			<div class="poster" v-if="$index!=0">
-				<img v-bind:src="p.imgUrl | getImagePoster">
-			</div>
+		<div class="content" >
+			<p class="title">{{p.exhibitName}}</p>
+			<p class="oth"> {{p.startTime}} -- {{p.endTime}} </p>
 		</div>
-			
+	</div>
 	</li>
 </ul>
+	<div class="test">
+
+	</div>
 </template>
+
+<style lang="stylus" scoped>
+ul{
+	width: 18.4rem;
+	margin: 0 auto;
+}
+li{
+	width: 100%;
+	
+	border-bottom:1px solid #dddddd;
+	padding-bottom: 0.8rem;
+	padding-top: 0.8rem;
+}
+.exhi{
+	width: 100%;
+	height: 3.7rem;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display :-ms-flex;
+	display :-o-flex;
+	display :flex;
+	display:-moz-box;
+	display: -webkit-box;
+	display: box;
+}
+
+li:last-child{
+	border-bottom: none;
+}
+
+.poster{
+	width: 3.7rem;
+	height: 3.7rem;
+	vertical-align: middle;
+	margin-right: 0.8rem;
+}
+.poster img{
+	width: 100%;
+	height: 100%
+	display: block;
+	vertical-align: middle;
+}
+
+.content{
+	overflow: hidden;
+	width:100%;
+	-moz-box-flex :1;
+	-webkit-box-flex :1;
+	box-flex :1;
+}
+.title{
+	font-size: 0.8rem;
+	color:#333333;
+	line-height: 1.22rem;
+}
+.oth{
+	font-size: 0.69rem;
+	color: #999999;
+	padding-top: 0.6rem;
+}
+
+</style>
+
 
 <script>
 import api from '../api.js'
@@ -113,69 +164,5 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-
-.content
-	overflow: hidden;
-	//margin: 0 5px 0 10px
-	overflow: hidden;
-	width 100%
-	-moz-box-flex 1
-	-webkit-box-flex 1
-	box-flex 1
-	margin-left 5px
-	margin-bottom 5px
-	p
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow:ellipsis;
-		//margin: 2px 0 2px 0;
-	.title
-		font-size 16px;
-	.oth
-		margin-top 10px
-		font-size 13px
-		color #a0a0a0
-ul
-	-webkit-overflow-scrolling: touch;
-	box-sizing: border-box;
-	height: 100%;
-	position: relative;
-	overflow-y auto
-	width 100%
-	li
-		padding-top 10px
-		border-bottom: 1px solid #ccc
-		width 100%
-		.more
-			display -webkit-flex
-			display -moz-flex
-			display -ms-flex
-			display -o-flex
-			display flex
-			display -moz-box
-			display -webkit-box
-			display box
-			//width: 98%
-			.poster
-				/*-moz-box-flex 3
-				-webkit-box-flex 3
-				box-flex 3*/
-				width 78px
-				img
-					width 78px
-					height 78px
-					float right
-					margin-right 5px
-					margin-bottom 5px
-		.first
-			div.poster img
-				width 100%
-				height 100%
-				//margin-bottom 2px
-					
-
-
-</style>
 
 
