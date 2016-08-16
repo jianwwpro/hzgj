@@ -21,11 +21,22 @@ export default (router) => {
 			component: require('./views/exhInfo.vue'),
 			
 		},
-		//展览介绍
+		//展览展品
 		'/exhArts/:id': {
 			name: 'exhArts',
 			component: require('./views/exhArts.vue'),
 			
+		},
+		//3D
+		'/exh3DArts/:id': {
+			name: 'exh3DArts',
+			component: require('./views/exh3DArts.vue'),
+			
+		},
+		//视频
+		'/exhVideos/:id':{
+			name:'exhVideos',
+			component: require('./views/exhVideos.vue')
 		},
 		//展品
 		'/art/:id': {
@@ -62,6 +73,11 @@ export default (router) => {
 			name:'gyab',
 			component:require('./views/gyab.vue')
 		},
+		'/appDownload':{
+			name:'appDownload',
+			component:require('./views/appDownload.vue')
+		},
+
 		'*': {
 			component: require('./views/404.vue')			
 		}

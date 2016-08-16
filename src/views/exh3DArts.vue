@@ -2,7 +2,7 @@
 <div class="content">
 	<ul class="clearfix">
 		<li v-for="art in arts">
-			<a href="{{art.sdUrl}}"><img v-bind:src="art.artImgUrl|getImagePoster" alt=""></a>
+			<a href="{{art.sdUrl}}"><img v-bind:src="art.artImgUrl|getImagePoster '207x207'" alt=""></a>
 			<p>{{art.artName}}</p>
 		</li>
 	</ul>

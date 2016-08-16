@@ -3,7 +3,7 @@
 	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.exhibitId }}">
 	<div class="exhi">
 		<div class="poster">
-			<img v-bind:src="p.imgUrl | getImagePoster">
+			<img v-bind:src="p.imgUrl | getImagePoster '120x120'">
 		</div>
 		<div class="content" >
 			<p class="title">{{p.exhibitName}}</p>
@@ -16,6 +16,8 @@
 
 	</div>
 </template>
+
+
 
 <style lang="stylus" scoped>
 ul{

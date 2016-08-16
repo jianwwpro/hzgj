@@ -4,7 +4,7 @@
 			<div class="contents">
 				<div class="bg_box">
 					<div class="content_img">
-						<img v-bind:src="art.artImgUrl"/>
+						<img v-bind:src="art.artImgUrl|getImagePoster"/>
 					</div>
 					<div class="small_button">
 						<ul class="highlight-color">
@@ -88,7 +88,8 @@ export default {
 			if(type==2){
 				this.$route.router.go({ name: 'audioPlay'});
 			}
-			if(type==2){
+			if(type==3){
+
 				window.location.href=url;
 			}
 		}

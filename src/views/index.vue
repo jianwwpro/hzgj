@@ -24,34 +24,42 @@
 			<li v-link="{name:'cgzn'}">参观指南</li>
 		</ul>
 	</div>
+	<div>
+		App下载
+		<ul>
+			<li v-link="{name:'appDownload'}">APP下载</li>
+			
+		</ul>
+	</div>
+	
 </div>
 </template>
 
+<style lang="stylus" scoped>
+@import "../assets/rem.styl";
+
+ul
+	margin-left 20px
+	li
+		margin-top 5px
+.test
+	width $appr
+	height 10rem
+	background pink
+
+</style>
 <script>
 import api from '../api.js'
 
 export default {
 	data () {
 		return {
-			productions: [],
-			pagination: {
-				page: 1,
-				limit: 10
-			},
+			
 			noMoreData: false
 		}
 	},
 	route: {
 		data ({ to }) {
-			return api.productions.index(this.pagination.page, this.pagination.limit)
-				.then(res => {
-					return {
-						productions: res.data.rows,
-					}
-				}, err => {
-					console.log(err);
-					alert('接口错误');
-				})
 		}
 	},
 	methods: {
@@ -62,12 +70,6 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-ul
-	margin-left 20px
-	li
-		margin-top 5px
 
-</style>
 
 

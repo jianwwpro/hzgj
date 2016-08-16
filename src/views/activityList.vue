@@ -3,9 +3,8 @@
 <ul class="productions items" id="productions" @scroll="scrollFunc">
 
 	<li v-for="p in productions" @click="link(p)">
-
 		<div class="more">
-			<div class="content" v-if="$index!=0">
+			<div class="content" >
 				<p class="title">{{p.title}}</p>
 				<p class="oth"> {{p.updateDate | formatDate}} </p>
 			</div>
@@ -36,7 +35,7 @@ export default {
 	watch: {
 		type: function(n,o){
 			if(n==1)
-				document.title = '社教活动';
+				document.title = '活动讲座';
 			if (n==0) {
 				document.title = '通知公告';	
 			};

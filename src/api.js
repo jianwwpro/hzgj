@@ -6,7 +6,8 @@ const PAGE_NO = 1
 const PAGE_SIZE = 10
 const platform='WX';
 // 常量 API 接口地址
-const HOST = '/hzgj/iface/jk'
+const HOST = 'http://cms.ahm.cn/hzgj/iface/jk'
+//const HOST = '/hzgj/iface/jk'
 // proudctions
 const API_PRODUCT_INDEX_API = `${HOST}/exhibitlist`
 const API_PRODUCT_SHOW_API = `${HOST}/exhibitdetail`
@@ -37,7 +38,7 @@ export default {
 	//通知社教
 	activity: {
 		list: (type,page) => {
-			return Vue.http.get(API_ACTIVITY_LIST_API, { wxMenu: type,page:page==null?1:page })
+			return Vue.http.get(API_ACTIVITY_LIST_API, { wxMenu: type,page:page==null?1:page,pageSize:20 })
 		},
 		get (id) {
 			return Vue.http.get(API_ACTIVITY_SHOW_API, { id: id })
@@ -45,8 +46,12 @@ export default {
 	},
 	//展品
 	arts: {
-		byExhibit: (id) => {
-			return Vue.http.get(API_ART_BYEXHIBIT_API,{exhibitId:id})
+		byExhibit: (id,tdFilter) => {
+			var params = {exhibitId:id};
+			if(tdFilter!=null){
+				params.is3d=tdFilter;
+			}
+			return Vue.http.get(API_ART_BYEXHIBIT_API,params)
 		},
 		get: (id) => {
 			return Vue.http.get(API_ART_INFO_API,{artId:id})

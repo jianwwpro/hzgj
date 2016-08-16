@@ -1,11 +1,4 @@
 <template>
-	<!--<appbar :data="title"></appbar>-->
-	<!-- <header>
-		<a href="javascript:history.go(-1)"><i class="fa fa-3x fa-angle-left"></i></a>
-		<h3>{{title}}</h3>
-	<a v-link="{ name: 'me' }"><i class="fa fa-2x fa-user"></i></a>
-	</header> -->
-
 	<div class="container">
 	
 		<router-view></router-view>
@@ -109,7 +102,8 @@ header
 <script>
 import Vue from 'vue'
 import Appbar from './components/appbar.vue'
-
+/*import resize from './resize.js'
+resize.init();*/
 
 // 拦截器
 export default {

@@ -2,7 +2,7 @@ var webpack = require('webpack')
 var WebpackDevServer = require('webpack-dev-server')
 var config = require('./webpack.dev.conf')
 
-config.entry.app.unshift("webpack-dev-server/client?http://localhost:9090", "webpack/hot/dev-server")
+config.entry.app.unshift("webpack-dev-server/client?http://localhost:3001", "webpack/hot/dev-server")
 
 var proxy = {
   "/hzgj/*": { target: "http://192.168.82.13:81", host: "192.168.82.13:81" },
@@ -31,8 +31,8 @@ compiler.plugin('compilation', function (compilation) {
 
 app.use(hotMiddleware)
 
-app.listen(9090, '0.0.0.0', function (err, result) {
-  console.log('http://localhost:9090');
+app.listen(3001, '0.0.0.0', function (err, result) {
+  console.log('http://localhost:3001');
   if (err) {
     console.log(err);
   }

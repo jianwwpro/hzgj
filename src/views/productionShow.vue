@@ -1,47 +1,88 @@
 <template>
 <div id="productionShow">
-	<div class="row">
-		<img class="full-img" v-bind:src="production.imgUrl | getImagePoster" >
+	<div class="top">
+		<img  v-bind:src="production.imgUrl | getImagePoster" >
 	</div>
-	<div class="row flex">
-		<!-- 介绍 -->
-		<div class="flex-img left-img" v-link="{ name: 'exhInfo', params: { id: production.exhibitId}}">
-			<img  v-bind:src="images[0]">
-		</div>
-		<div class="flex-img right-img" v-link="{ name: 'exhArts', params: {id: production.exhibitId}}">
-			<img  v-bind:src="images[1]">
-		</div>
-		
-	</div>
-	<div class="row flex">
+	<ul class="clearfix">
+		<li><a href="#" v-link="{ name: 'exhInfo', params: { id: production.exhibitId}}"> <img  v-bind:src="images[0]"> </a></li>
+		<li><a href="#" v-link="{ name: 'exhArts', params: {id: production.exhibitId}}"><img  v-bind:src="images[1]"></a></li>
+		<li><a href="#" v-link="{ name:'exhVideos',params: {id: production.exhibitId}}" ><img  v-bind:src="images[2]"></a></li>
+		<li><a href="#" v-link="{name:'exh3DArts',params:{id: production.exhibitId}}" > <img  v-bind:src="images[3]"></a> </li>
 
-		<div class="flex-img left-img" @click="play(production.videoUrl)" >
-			<img  v-bind:src="images[2]">
-		</div>
-		<div class="flex-img right-img"  @click="openLocation(production.url3D)">
-			<img  v-bind:src="images[3]">
-		</div>
-	</div>
-	<div class="row">
+	</ul>
+	
+	<div class="bottom">
 		<img class="full-img" v-bind:src="images[4]"  @click="openLocation(production.panoramaUrl)">
-
 	</div>
 	
 	
 </div>
-
-
 </template>
+
+<style lang="stylus" scoped>
+	#productionShow{
+		width: 100%;
+	}
+	.top{
+		width: 100%;
+	}
+	.top img{
+		width: 100%;
+		height: 12.16rem;
+		display: block;
+	}
+
+	ul{
+		width: 100%;
+	}
+	ul li{
+		width: 50%;
+		float: left;
+		height: 6.4rem;
+		padding-top: 0.26rem
+	}
+	ul li:nth-child(2n){
+		padding-left: 0.13rem;	
+	}
+	ul li:nth-child(2n+1){
+		padding-right: 0.13rem;	
+	}
+	
+
+	ul li a{
+		width: 100%;
+	}
+	ul li a img{
+		width: 100%;
+		height: 100%;
+		display: block;
+	}
+
+
+	.bottom{
+		width: 100%;
+		height: 6.34rem;
+		margin-top: 0.26rem;
+	}
+	.bottom img{
+		width:100%;
+		height: 100%;
+	}
+	
+</style> 
   
 <script>
 import api from '../api.js'
 import { seturl } from '../action'
 import store from '../store'
 
+
+
+
 export default {
 	data () {
 		return {
-			images: ['../static/i/js.png','../static/i/zs.png','../static/i/sp.png','../static/i/3d.png','../static/i/qj.png'],
+			images: ['../static/i/11.png','../static/i/12.png','../static/i/14.png','../static/i/13.png','../static/i/qj.png'],
 			production: {},
 			
 		}
@@ -60,6 +101,9 @@ export default {
 			console.log(n);
 			document.title=this.production.exhibitName;
 			//this.$route.router.app.title=n.exhibitName;
+			if(n.exhibitName=='徽州古建筑'){
+				this.images=['../static/i/1.png','../static/i/2.png','../static/i/3.png','../static/i/4.png','../static/i/qj1.png'];
+			}
 		}
 	},
 
@@ -68,7 +112,7 @@ export default {
 			
 			return api.productions.get(id)
 				.then(res => {
-					console.log(res.data.result);
+
 					document.title=res.data.result.exhibitName;
 					return {
 						production: res.data.result,
@@ -103,90 +147,3 @@ export default {
 }
 
 </script>
-
-<style lang="stylus" scoped>
-@import '../assets/variables.styl'
-
-#productionShow
-	.flex
-		width 100%
-		display -webkit-box
-		display -webkit-flex
-		display flex
-		-webkit-box-orient horizontal
-		-webkit-flex-flow row
-		margin-bottom 10px
-		.flex-img
-			width 50%		
-			height 50%
-			-webkit-box-flex 1
-			-webkit-flex 1
-			flex 1
-			-moz-box-flex 1.0
-			-webkit-box-flex 1.0
-			box-flex 1.0
-		.left-img
-			padding-right 5px
-		.right-img
-			padding-left 5px
-		img 
-			width: 100%
-			
-	.row
-		width 100%
-		.full-img
-			width 100%
-			margin-bottom 5px
-	h1
-		font-size 20px
-		margin-bottom 10px
-	p
-		&.addrs
-			font-size 18px
-			color #777
-			margin-bottom 10px
-		&.intro
-			font-size 16px
-	a.btn
-		text-decoration none
-		display block
-		background $themeColor
-		width 100%
-		color white
-		height 40px
-		line-height 40px
-		text-align center
-		font-size 20px
-		letter-spacing .5em
-		position fixed
-		left 0
-		bottom 0px
-div.mask
-	position fixed
-	top 100%
-	left 0
-	bottom 40px
-	right 0
-	background rgba(0,0,0,0.3)
-	form
-		padding .5em 0
-		position absolute
-		bottom 0px
-		background white
-		width 100%
-		font-size 18px
-		border-top 1px solid $themeColor
-		>div
-			margin 0 15px
-// transition
-div.mask.fade-transition
-	transition: all .3s ease
-	top 0
-div.mask.fade-enter, div.mask.fade-leave
-	top 100%
-form.fade-transition
-	transition: all .3s ease
-	bottom 0px
-form.fade-enter, div.fade-leave
-	bottom 0px
-</style> 
