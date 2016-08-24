@@ -1,8 +1,8 @@
 <template>
 	<ul class="videos">
 		<li v-for="video in videos">
-			<a href="#" @click="play(video.url)" ><img v-bind:src="playImage" alt=""></a>
-			<p>{{video.name}}</p>
+			<a href="#" @click="play(video.filePath)" ><img v-bind:src="playImage" alt=""></a>
+			<p>{{video.fileDisplayName}}</p>
 		</li>
 	
 	</ul>
@@ -66,11 +66,9 @@ import store from '../store'
 		},
 		route: {
 			data ({ to : {params:{id}}}){
-
 				return api.productions.get(id).then(res=>{
-					console.log(res.data.result.videoUrl);
 					return {
-						videos:res.data.result.videoUrl
+						videos:res.data.videos
 					}
 				},err=>{
 					alert("接口错误");

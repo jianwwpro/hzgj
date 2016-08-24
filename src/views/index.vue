@@ -3,18 +3,18 @@
 	<div>
 		咨询活动
 		<ul>
-			<li v-link="{name:'activityList',params:{type:2}}">新展预告</li>
-			<li v-link="{name:'activityList',params:{type:0}}">通知公告</li>
-			<li v-link="{name:'activityList',params:{type:1}}">社教活动</li>
+			<li v-link="{name:'activityList',params:{type:'hzyg'}}">新展预告</li>
+			<li v-link="{name:'activityList',params:{type:'tzgg'}}">通知公告</li>
+			<li v-link="{name:'activityList',params:{type:'sjhd'}}">社教活动</li>
 		</ul>
 	</div>
 	<div>
 		在线看展
 		<ul>
-			<li v-link="{name:'index',params:{type:3}}">基本陈列</li>
-			<li v-link="{name:'index',params:{type:2}}">展览回顾</li>
-			<li v-link="{name:'index',params:{type:1}}">全景展览</li>
-			<li v-link="{name:'index',params:{type:0}}">最新展览</li>
+			<li><a href="/exhibitList?platformid=1&menuId=4"> 基本陈列</a></li>
+			<li><a href="/exhibitList?platformid=1&menuId=3"> 展览回顾</a></li>
+			<li><a href="/exhibitList?platformid=1&menuId=2">全景展览</a></li>
+			<li><a href="/exhibitList?platformid=1&menuId=1">最新展览</a></li>
 		</ul>
 	</div>
 	<div>

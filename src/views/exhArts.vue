@@ -1,8 +1,8 @@
-html<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
 	<div id="exhArts"  class="contents container wrap" id="contents" tapmode>
-		<div v-for="p in arts" v-link="{ name: 'artInfo', params: { id: p.artId }}">
-			<img class="myImg highlight-color" v-bind:src="p.artImgUrl | getImagePoster" alt="" title="" />
-			<span class="title">{{p.artName}}</span>
+		<div v-for="p in arts" v-link="{ name: 'artInfo', params: { id: p.id }}">
+			<img class="myImg highlight-color" v-bind:src="p.conver | getImagePoster" alt="" title="" />
+			<span class="title">{{p.titleName||p.bookName}}</span>
 		</div>
 	</div>
 
@@ -35,12 +35,17 @@ html<template xmlns:v-bind="http://www.w3.org/1999/xhtml">
 		route: {
 			data ({ to : {params: { id }}}) {
 
-				return api.arts.byExhibit(id)
-								.then(res => {
-							console.log(res.data.artList);
+				return api.productions.get(id)
+				.then(res => {
+					console.log(res.data.artworks.wwInfo);
+					let wwarts = res.data.artworks.wwInfo||[];
+					let gjarts = res.data.artworks.gjInfo||[];
+					console.log(wwarts,gjarts);
+					console.log(wwarts.concat(gjarts));
 				return {
-					arts: res.data.artList
-				}
+					arts: wwarts.concat(gjarts)
+
+					}
 			}, err => {
 					console.log(err);
 					alert('接口错误');

@@ -2,8 +2,8 @@
 <div class="content">
 	<ul class="clearfix">
 		<li v-for="art in arts">
-			<a href="{{art.sdUrl}}"><img v-bind:src="art.artImgUrl|getImagePoster '207x207'" alt=""></a>
-			<p>{{art.artName}}</p>
+			<a href="{{art.threeDime[0].filePath}}"><img v-bind:src="art.conver|getImagePoster '207x207'" alt=""></a>
+			<p>{{art.titleName||art.bookName}}</p>
 		</li>
 	</ul>
 </div>
@@ -68,17 +68,22 @@
 				arts:[]
 			}
 		},route : {
-			data({to:{params:{id}}}){
-				return api.arts.byExhibit(id,1).then(
-					res => {
-						return {
-							arts: res.data.artList
-						}
-					},err => {
-						console.log(err);
-						alert('接口错误');
+			data ({ to : {params:{id}}}){
+				return api.productions.get(id).then(res=>{
+					let artworks = res.data.artworks;
+					let ww3D = artworks.ww3D||[];
+					let gj3D = artworks.gj3D||[];
+					let exhibitArtworks = [];
+					exhibitArtworks=exhibitArtworks.concat(ww3D);
+					exhibitArtworks=exhibitArtworks.concat(gj3D);
+					console.log(exhibitArtworks[0].threeDime[0].filePath)
+					
+					return {
+						arts:exhibitArtworks
 					}
-				)
+				},err=>{
+					alert("接口错误");
+				})
 			}
 		},methods:{
 

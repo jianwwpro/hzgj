@@ -19,5 +19,4 @@ export function formatDate (str) {
 		return str;
 	else 
 		return str.substring(0,10);
-	
 }

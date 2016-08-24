@@ -1,13 +1,13 @@
 <template>
 <ul class="productions items" id="productions" @scroll="scrollFunc">
-	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.exhibitId }}">
+	<li v-for="p in productions" v-link="{ name: 'productionShow', params: { id: p.id}}">
 	<div class="exhi">
 		<div class="poster">
-			<img v-bind:src="p.imgUrl | getImagePoster '120x120'">
+			<img v-bind:src="p.cover | getImagePoster '120x120'">
 		</div>
 		<div class="content" >
-			<p class="title">{{p.exhibitName}}</p>
-			<p class="oth"> {{p.startTime}} -- {{p.endTime}} </p>
+			<p class="title">{{p.titleName}}</p>
+			<p class="oth"> {{p.startDate|formatDate}} - {{p.endDate|formatDate}} </p>
 		</div>
 	</div>
 	</li>
@@ -16,6 +16,84 @@
 
 	</div>
 </template>
+
+
+<script>
+import api from '../api.js'
+import store from '../store'
+import { increment, decrement } from '../action'
+
+
+export default {
+	data () {
+		return {
+			productions: [],
+			pagination: {
+				page: 1,
+				limit: 10
+			},
+			noMoreData: false,
+		}
+	},
+	store,
+	vuex: {
+	    getters: {
+	      count: state => state.count
+	    },
+	    actions: {
+	      increment,
+	      decrement
+	    }
+	},
+	route: {
+		data () {
+			let params = this.$route.query;
+			return api.productions.index(params.platformid,params.menuId,params.isPub)
+				.then(res => {
+					console.log(res.data);
+					return {
+						productions: res.data,
+					}
+				}, err => {
+					console.log(err);
+					alert('接口错误');
+				})
+			}
+	},
+	methods: {
+
+		scrollFunc: function (e) {
+			
+			if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
+				this.pagination.page++
+				api.productions.index(this.pagination.page, this.pagination.limit)
+					.then(res => {
+						if (res.data.rows < this.pagination.limit){
+							this.noMoreData = true
+							return this.$router.app.snackbar('warning', '没有数据了')
+						}
+						this.productions = this.productions.concat(res.data.rows);
+					}, err => {
+						console.log(err);
+						// alert('接口错误');
+					})
+			}
+		}
+	},ready () {
+		//this.$route.router.app.title="最新展览";
+		if(this.type==0){
+			document.title = '最新展览';
+		}else if(this.type==1){
+			document.title = '全景展览';
+		}else if(this.type==2){
+			document.title = '展览回顾';
+		}else if(this.type==3){
+			document.title = '基本陈列';
+		}
+		
+	}
+}
+</script>
 
 
 
@@ -80,91 +158,6 @@ li:last-child{
 }
 
 </style>
-
-
-<script>
-import api from '../api.js'
-import store from '../store'
-import { increment, decrement } from '../action'
-
-
-export default {
-	data () {
-		return {
-			productions: [],
-			pagination: {
-				page: 1,
-				limit: 10
-			},
-			noMoreData: false,
-			type:0
-
-		}
-	},
-	store,
-	vuex: {
-	    getters: {
-	      count: state => state.count
-	    },
-	    actions: {
-	      increment,
-	      decrement
-	    }
-	},
-	route: {
-		data ({ to : { params: { type }}}) {
-			this.type=type;
-		// return {	
-		// 	productions : api.exhibits.list
-		// }
-		return api.productions.index()
-			.then(res => {
-				console.log(res.data);
-				return {
-
-					productions: res.data.lists[type],
-					
-				}
-			}, err => {
-				console.log(err);
-				alert('接口错误');
-			})
-		}
-	},
-	methods: {
-
-		scrollFunc: function (e) {
-			
-			if (!this.noMoreData && (e.target.scrollTop + e.target.offsetHeight) >= e.target.scrollHeight) {
-				this.pagination.page++
-				api.productions.index(this.pagination.page, this.pagination.limit)
-					.then(res => {
-						if (res.data.rows < this.pagination.limit){
-							this.noMoreData = true
-							return this.$router.app.snackbar('warning', '没有数据了')
-						}
-						this.productions = this.productions.concat(res.data.rows);
-					}, err => {
-						console.log(err);
-						// alert('接口错误');
-					})
-			}
-		}
-	},ready () {
-		//this.$route.router.app.title="最新展览";
-		if(this.type==0){
-			document.title = '最新展览';
-		}else if(this.type==1){
-			document.title = '全景展览';
-		}else if(this.type==2){
-			document.title = '展览回顾';
-		}else if(this.type==3){
-			document.title = '基本陈列';
-		}
-		
-	}
-}
-</script>
 
 
 

@@ -30,15 +30,19 @@ export default {
 	watch:{
 		activity:function(n,o){
 			document.title = n.title;
+			var imgs = document.getElementsByTagName('img');
+			for(var i=0;i<imgs.length;i++){
+				imgs[i].style.width="100%";
+			}
 		}
 	},
 	route: {
 		data ({ to : {params: { id }}}) {		
 			return api.activity.get(id)
 				.then(res => {
-					console.log(res.data.result);
+					console.log(res.data);
 					return {
-						activity: res.data.result
+						activity: res.data
 					}
 				}, err => {
 					console.log(err);
@@ -75,7 +79,8 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
+@import '../assets/variables.styl'
 
 .rich_media_area_primary
     position relative
@@ -101,11 +106,15 @@ export default {
  }
  em {
     	font-style: normal;
+		color $fontColor
  }
 
- .mm_appmsg .rich_media_meta{
-	font-size: 17px;
+ .rich_media_meta{
 	 vertical-align: middle;
     margin-right: 8px;
     margin-bottom: 10px;
+	color $fontColor
  }
+
+ 	
+</style>

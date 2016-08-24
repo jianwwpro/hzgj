@@ -5,7 +5,7 @@ export default (router) => {
 			component: require('./views/index.vue')
 		},
 		//展览列表
-		'/exhibitList/:type': {
+		'/exhibitList': {
 			name: 'index',
 			component: require('./views/exhibitList.vue')
 			},

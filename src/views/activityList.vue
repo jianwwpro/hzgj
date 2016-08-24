@@ -1,19 +1,23 @@
 <template>
 
 <ul class="productions items" id="productions" @scroll="scrollFunc">
+	<li class="item" v-for="p in productions" @click="link(p)">
+		<div class="avatar"><img :src="p.coverMap | getImagePoster '120x120'" alt=""></div>
+		<div class="content">
+			<p class="title">{{p.title}}</p>
+			<p class="date">{{p.updateDate | formatDate}}</p>
+			<p class="digest">{{p.digest}}</p>
+		</div>
+	</li>
+</ul>
 
-	<li v-for="p in productions" @click="link(p)">
-		<div class="more">
+<!--<div class="more">
 			<div class="content" >
 				<p class="title">{{p.title}}</p>
 				<p class="oth"> {{p.updateDate | formatDate}} </p>
 			</div>
 			
-		</div>
-			
-	</li>
-</ul>
-
+		</div>-->
 		
 </template>
 
@@ -23,35 +27,23 @@ import api from '../api.js'
 export default {
 	data () {
 		return {
-			type:0,
+			type:'',
 			productions: [],
 			pagination: {
 				page: 1,
-				limit: 10
+				limit: 20
 			},
 			noMoreData: false
 		}
 	},
-	watch: {
-		type: function(n,o){
-			if(n==1)
-				document.title = '活动讲座';
-			if (n==0) {
-				document.title = '通知公告';	
-			};
-			if (n==2) {
-				document.title = '新展预告';	
-			};
-		}
-	},
+	
 	route: {
 		data ({ to : { params: { type }}}) {
-		this.type=type;
 		return api.activity.list(type)
 			.then(res => {
 				console.log(res.data);
 				return {
-					productions: res.data.artList,
+					productions: res.data
 				}
 			}, err => {
 				console.log(err);
@@ -78,7 +70,7 @@ export default {
 							return this.$router.app.snackbar('warning', '没有数据了')
 						}
 
-						this.productions = this.productions.concat(res.data.artList);
+						this.productions = this.productions.concat(res.data);
 					}, err => {
 						console.log(err);
 						// alert('接口错误');
@@ -93,64 +85,47 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import "../assets/variables.styl"
 
-.content
-	overflow: hidden;
-	//margin: 0 5px 0 10px
-	overflow: hidden;
+body
+	box-sizzing boder-box
+.productions
 	width 100%
-	-moz-box-flex 1
-	-webkit-box-flex 1
-	box-flex 1
-	margin-left 5px
-	margin-bottom 5px
-	p
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow:ellipsis;
-		//margin: 2px 0 2px 0;
-	.title
-		font-size 16px;
-	.oth
-		margin-top 10px
-		font-size 13px
-		color #a0a0a0
-ul
-	-webkit-overflow-scrolling: touch;
-	box-sizing: border-box;
-	height: 100%;
-	position: relative;
-	overflow-y auto
-	width 100%
-	li
-		padding-top 10px
-		border-bottom: 1px solid #ccc
+	padding 0 10px
+
+	.item
+		border-bottom 1px solid $borderColor
 		width 100%
-		.more
-			display -webkit-flex
-			display -moz-flex
-			display -ms-flex
-			display -o-flex
-			display flex
-			display -moz-box
-			display -webkit-box
-			display box
-			//width: 98%
-			.poster
-				/*-moz-box-flex 3
-				-webkit-box-flex 3
-				box-flex 3*/
-				width 78px
-				img
-					width 78px
-					height 78px
-					float right
-					margin-right 5px
-					margin-bottom 5px
-		.first
-			div.poster img
-				width 100%
-				height 100%
-				//margin-bottom 2px
+		height 82px
+		padding-top 5px
+		padding-bottom 5px
+		display -webkit-box
+		display box
+.avatar
+	width 72px
+	height 72px
+	img 
+		display block
+		width 72px
+		height 72px
+.content
+	margin-left 10px
+	-webkit-box-flex 1
+	p
+		overflow hidden
+		text-overflow ellipsis
+		white-space nowrap
+		padding-top 5px
+	.date
+		color $fontColor
+	.title
+		font-size 15px
+		text-overflow ellipsis
+		white-space nowrap
+		padding-top 5px
+	.digest
+		color $fontColor
+	
+	
 		
 </style>

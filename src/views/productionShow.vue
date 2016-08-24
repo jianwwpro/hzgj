@@ -1,18 +1,18 @@
 <template>
 <div id="productionShow">
 	<div class="top">
-		<img  v-bind:src="production.imgUrl | getImagePoster" >
+		<img  v-bind:src="production.cover | getImagePoster" >
 	</div>
 	<ul class="clearfix">
-		<li><a href="#" v-link="{ name: 'exhInfo', params: { id: production.exhibitId}}"> <img  v-bind:src="images[0]"> </a></li>
-		<li><a href="#" v-link="{ name: 'exhArts', params: {id: production.exhibitId}}"><img  v-bind:src="images[1]"></a></li>
-		<li><a href="#" v-link="{ name:'exhVideos',params: {id: production.exhibitId}}" ><img  v-bind:src="images[2]"></a></li>
-		<li><a href="#" v-link="{name:'exh3DArts',params:{id: production.exhibitId}}" > <img  v-bind:src="images[3]"></a> </li>
+		<li><a href="#" v-link="{ name: 'exhInfo', params: { id: production.id}}"> <img  v-bind:src="images[0]"> </a></li>
+		<li><a href="#" v-link="{ name: 'exhArts', params: {id: production.id}}"><img  v-bind:src="images[1]"></a></li>
+		<li><a href="#" v-link="{ name:'exhVideos',params: {id: production.id}}" ><img  v-bind:src="images[2]"></a></li>
+		<li><a href="#" v-link="{name:'exh3DArts',params:{id: production.id}}" > <img  v-bind:src="images[3]"></a> </li>
 
 	</ul>
 	
 	<div class="bottom">
-		<img class="full-img" v-bind:src="images[4]"  @click="openLocation(production.panoramaUrl)">
+		<img class="full-img" v-bind:src="images[4]"  @click="openLocation(production.piano)">
 	</div>
 	
 	
@@ -113,9 +113,9 @@ export default {
 			return api.productions.get(id)
 				.then(res => {
 
-					document.title=res.data.result.exhibitName;
+				//	document.title=res.data.result.exhibitName;
 					return {
-						production: res.data.result,
+						production: res.data,
 					}
 				}, err => {
 					console.log(err);

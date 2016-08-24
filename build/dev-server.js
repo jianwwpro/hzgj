@@ -5,7 +5,7 @@ var config = require('./webpack.dev.conf')
 config.entry.app.unshift("webpack-dev-server/client?http://localhost:3001", "webpack/hot/dev-server")
 
 var proxy = {
-  "/hzgj/*": { target: "http://192.168.82.13:81", host: "192.168.82.13:81" },
+  "/hzgj/*": { target: "http://localhost:8080", host: "localhost:8080" },
 };
 
 var compiler = webpack(config)
