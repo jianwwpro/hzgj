@@ -3,7 +3,7 @@
 	<div>
 		咨询活动
 		<ul>
-			<li v-link="{name:'activityList',params:{type:'hzyg'}}">新展预告</li>
+			<li v-link="{name:'activityList',params:{type:'xzyg'}}">新展预告</li>
 			<li v-link="{name:'activityList',params:{type:'tzgg'}}">通知公告</li>
 			<li v-link="{name:'activityList',params:{type:'sjhd'}}">社教活动</li>
 		</ul>
