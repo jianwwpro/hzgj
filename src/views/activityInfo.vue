@@ -37,6 +37,7 @@ export default {
 		}
 	},
 	route: {
+		//Promise
 		data ({ to : {params: { id }}}) {		
 			return api.activity.get(id)
 				.then(res => {
