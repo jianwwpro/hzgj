@@ -64,7 +64,8 @@ export default {
 	},
 	methods: {
 		
-	},ready:function(){
+	},
+	ready:function(){
 		document.title="安徽博物院";
 	}
 }

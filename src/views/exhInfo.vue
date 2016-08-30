@@ -4,7 +4,7 @@
 		<img class="full-img" v-bind:src="exhibit.cover | getImagePoster" >
 	</div>
 	<div class="row-text">
-		<p>{{exhibit.exDescription}}</p>
+		<p v-html="exhibit.exDescription"></p>
 	</div>
 </div>
 

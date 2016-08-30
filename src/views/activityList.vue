@@ -1,7 +1,8 @@
 <template>
 
 <ul class="productions items" id="productions" @scroll="scrollFunc">
-	<li class="item" v-for="p in productions" @click="link(p)">
+
+	<li class="item" v-for="p in productions"  @click="link(p)">
 		<div class="avatar"><img :src="p.coverMap | getImagePoster '120x120'" alt=""></div>
 		<div class="content">
 			<p class="title">{{p.title}}</p>
@@ -12,12 +13,12 @@
 </ul>
 
 <!--<div class="more">
-			<div class="content" >
-				<p class="title">{{p.title}}</p>
-				<p class="oth"> {{p.updateDate | formatDate}} </p>
-			</div>
-			
-		</div>-->
+		<div class="content" >
+			<p class="title">{{p.title}}</p>
+			<p class="oth"> {{p.updateDate | formatDate}} </p>
+		</div>
+		
+	</div>-->
 		
 </template>
 
@@ -36,7 +37,6 @@ export default {
 			noMoreData: false
 		}
 	},
-	
 	route: {
 		data ({ to : { params: { type }}}) {
 		return api.activity.list(type)
@@ -54,9 +54,12 @@ export default {
 	methods: {
 		link:function(p){
 			if(p.wxSuCai==true){
+				
 				window.location.href=p.sourceUrl;
 			}else 
 				this.$route.router.go({name:'activityInfo',params:{id:p.id}});
+				console.log(p.id);
+				
 		},
 		scrollFunc: function (e) {
 			
@@ -64,7 +67,7 @@ export default {
 				this.pagination.page++
 				api.activity.list(this.type,this.pagination.page)
 					.then(res => {
-						console.log(res);
+						
 						if (res.data.artList < 10){
 							this.noMoreData = true
 							return this.$router.app.snackbar('warning', '没有数据了')
@@ -77,9 +80,20 @@ export default {
 					})
 			}
 		}
-	},ready () {
+	}
+		,ready () {
+
+		let type = this.$route.params.type;
 		
-		
+			if(type=='xzyg'){
+				document.title = '新展预告';
+			}else if(type=='tzgg'){
+				document.title = '通知公告';
+			}else if(type=='sjhd'){
+				document.title = '社教活动';
+			}else{
+				document.title = '咨询活动';
+			}
 	}
 }
 </script>
