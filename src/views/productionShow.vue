@@ -19,6 +19,83 @@
 </div>
 </template>
 
+  
+<script>
+import api from '../api.js'
+import { seturl } from '../action'
+import store from '../store'
+
+export default {
+	data () {
+		return {
+			images: ['../static/i/11.png','../static/i/12.png','../static/i/14.png','../static/i/13.png','../static/i/qj.png'],
+			production: {},
+			
+		}
+	},
+	store,
+	vuex: {
+	    getters: {
+	      url: state => state.url,
+	    },
+	    actions: {
+	      seturl
+	    }
+	},
+	watch : {
+		'production': function(n,o){
+			console.log(n.titleName);			
+			//此处没有找到展览名称字段
+				console.log(n)
+			document.title=n.titleName;
+			//this.$route.router.app.title=n.exhibitName;
+			if(n.exhibitName=='徽州古建筑'){
+				this.images=['../static/i/1.png','../static/i/2.png','../static/i/3.png','../static/i/4.png','../static/i/qj1.png'];
+			}
+		}
+	},
+
+	route: {
+		data ({ to : { params: { id }}}) {
+			
+			return api.productions.get(id)
+				.then(res => {
+
+				//	document.title=res.data.result.exhibitName;
+					return {
+						production: res.data,
+					}
+				}, err => {
+					console.log(err);
+					alert('接口错误');
+				})
+// alert(id);
+// var ex= api.exhibits.get(id);
+			
+			// return {
+			// 	production:ex
+			// }
+		}
+	},
+	methods: {
+		openLocation:function(url){
+			
+			window.location.href=url;
+		},
+		play:function(url){
+			this.seturl(url);
+			console.log(this.url);
+			this.$route.router.go({ name: 'videoPlay'});
+		}
+	},
+	ready () {
+		console.log(this.production.titleName)
+	}
+
+}
+
+</script>
+
 <style lang="stylus" scoped>
 	#productionShow{
 		width: 100%;
@@ -70,80 +147,3 @@
 	}
 	
 </style> 
-  
-<script>
-import api from '../api.js'
-import { seturl } from '../action'
-import store from '../store'
-
-
-
-
-export default {
-	data () {
-		return {
-			images: ['../static/i/11.png','../static/i/12.png','../static/i/14.png','../static/i/13.png','../static/i/qj.png'],
-			production: {},
-			
-		}
-	},
-	store,
-	vuex: {
-	    getters: {
-	      url: state => state.url,
-	    },
-	    actions: {
-	      seturl
-	    }
-	}
-	,watch : {
-		'production': function(n,o){
-			console.log(n);
-			document.title=this.production.exhibitName;
-			//this.$route.router.app.title=n.exhibitName;
-			if(n.exhibitName=='徽州古建筑'){
-				this.images=['../static/i/1.png','../static/i/2.png','../static/i/3.png','../static/i/4.png','../static/i/qj1.png'];
-			}
-		}
-	},
-
-	route: {
-		data ({ to : { params: { id }}}) {
-			
-			return api.productions.get(id)
-				.then(res => {
-
-				//	document.title=res.data.result.exhibitName;
-					return {
-						production: res.data,
-					}
-				}, err => {
-					console.log(err);
-					alert('接口错误');
-				})
-// alert(id);
-// var ex= api.exhibits.get(id);
-			
-			// return {
-			// 	production:ex
-			// }
-		}
-	},
-	methods: {
-		openLocation:function(url){
-			
-			window.location.href=url;
-		},
-		play:function(url){
-			this.seturl(url);
-			console.log(this.url);
-			this.$route.router.go({ name: 'videoPlay'});
-		}
-	},
-	ready () {
-		
-	}
-
-}
-
-</script>

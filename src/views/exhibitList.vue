@@ -48,12 +48,15 @@ export default {
 	route: {
 		data () {
 			let params = this.$route.query;
+			
 			return api.productions.index(params.platformid,params.menuId,params.isPub)
 				.then(res => {
-					console.log(res.data);
+					
 					return {
-						productions: res.data,
+						productions: res.data
+						
 					}
+					
 				}, err => {
 					console.log(err);
 					alert('接口错误');
@@ -79,17 +82,21 @@ export default {
 					})
 			}
 		}
-	},ready () {
+	},
+	ready () {
 		//this.$route.router.app.title="最新展览";
-		if(this.type==0){
-			document.title = '最新展览';
-		}else if(this.type==1){
-			document.title = '全景展览';
-		}else if(this.type==2){
-			document.title = '展览回顾';
-		}else if(this.type==3){
-			document.title = '基本陈列';
-		}
+		let type = this.$route.query.menuId;
+			if(type==1){
+				document.title = '最新展览';
+			}else if(type==2){
+				document.title = '全景展览';
+			}else if(type==3){
+				document.title = '展览回顾';
+			}else if(type==4){
+				document.title = '基本陈列';
+			}else{
+				document.title = '在线看展';
+			}
 		
 	}
 }
@@ -98,6 +105,9 @@ export default {
 
 
 <style lang="stylus" scoped>
+
+
+	
 ul{
 	width: 18.4rem;
 	margin: 0 auto;

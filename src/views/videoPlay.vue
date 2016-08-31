@@ -1,8 +1,10 @@
 <template>
-<video style="width:100%;height:100%;" controls="controls" preload="preload" autoplay="autoplay">  
-        <source v-bind:src="url" type="video/mp4" >示例视频1</source>  
-        您的浏览器不支持video标签  
-</video>
+<div style="width:100%;height:100%;">
+	<video style="width:100%;height:100%;" controls="controls" preload="preload" autoplay="autoplay">  
+	        <source v-bind:src="url" type="video/mp4" >示例视频1</source>  
+	        您的浏览器不支持video标签  
+	</video>
+</div>
 </template>
 
 <script>

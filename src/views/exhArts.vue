@@ -57,7 +57,7 @@
 		},ready () {
 			//this.$route.router.app.title="最新展览";
 
-			document.title = '藏品展示';
+			document.title = '展品展示';
 		}
 	}
 </script>

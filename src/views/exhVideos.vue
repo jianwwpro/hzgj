@@ -75,13 +75,14 @@ import store from '../store'
 				})
 			}
 		},
-		ready(){
-			
-		},methods:{
+		methods:{
 			play: function(url){
 				this.seturl(url);
 				this.$route.router.go({ name: 'videoPlay'});
 			}
+		},
+		ready(){
+			document.title = "展览视频";
 		}
 
 	}

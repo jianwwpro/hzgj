@@ -41,7 +41,7 @@ export default {
 		data ({ to : {params: { id }}}) {		
 			return api.activity.get(id)
 				.then(res => {
-					console.log(res.data);
+					console.log(res.data.content+'*****');
 					return {
 						activity: res.data
 					}
@@ -116,6 +116,8 @@ export default {
     margin-bottom: 10px;
 	color $fontColor
  }
-
+.videowrap{
+	width:100%;
+}
  	
 </style>
